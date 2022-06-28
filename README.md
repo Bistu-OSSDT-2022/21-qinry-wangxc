@@ -8,10 +8,12 @@
 ***
 # 演示画面：
 
-##——五子棋——
-###1.五子串联即为胜利
+——五子棋——
+
+1.五子串联即为胜利
 ![d82ef92eb13fba0330742c3cbf19399](https://user-images.githubusercontent.com/107829707/176191378-fa321ff2-0b97-4a4b-91ba-77c29d3d9d28.png)
-###2.双方支持三次撤回
+
+2.双方支持三次撤回
 ![9ff0628373563a3447070f6a28c4c9c](https://user-images.githubusercontent.com/107829707/176191481-b2607498-03a8-4ce3-bc6b-4c0a88d7fc7d.png)
 
 
