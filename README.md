@@ -17,9 +17,13 @@
 # 开发团队：
 # 团队名称：三代一队
  1.王相程（github username：yinnizhileng）
+ 
  2.王羿（github username：zhuwohaoyunYi）
+ 
  3.贾乙（github username： bxkrg）
+ 
  4.杜进（github username：dddjj）
+ 
  5.王旭东（github username： XvDON）
 
 # 特别鸣谢：
