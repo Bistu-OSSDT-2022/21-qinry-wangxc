@@ -1,0 +1,10 @@
+package Gamebody;
+
+public class Start {
+
+	public static void main(String[] args) {
+		@SuppressWarnings("unused")
+		FiveInARow five = new FiveInARow();
+	}
+
+}
