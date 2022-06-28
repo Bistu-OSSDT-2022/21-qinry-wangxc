@@ -1,0 +1,269 @@
+package Gamebody;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+@SuppressWarnings("serial")
+public class FiveInARow extends JFrame implements MouseListener {
+	@SuppressWarnings("rawtypes")
+	Vector v = new Vector();  //添加每步棋子的信息
+	@SuppressWarnings("rawtypes")
+	Vector white = new Vector();   //白棋走棋信息
+	@SuppressWarnings("rawtypes")
+	Vector black = new Vector();   //黑棋走棋信息
+	boolean b;
+	int whiteCount,blackCount;     //计算悔棋步数
+	int w = 25;  //间距大小
+	int px = 150 , py = 150 ;      //棋盘大小
+	int pxw = px + w , pyw = py + w ;
+	int width = w * 24 , height = w * 24 ;
+	int vline = width + px ;       //垂直线的长度   
+	int hline = height + py ;      //水平线的长度
+	
+	
+	/*
+	 * 构造方法
+	 */
+	public FiveInARow() {
+		super("五子棋单机版");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//在点击X关闭按钮时，程序随之结束
+		Container con = this.getContentPane();  //.getContentPane()获取面板 ， Container容器
+		con.setLayout(new BorderLayout());
+		this.addMouseListener(this);  //添加监听
+		this.setSize(900, 900);  //设置窗体大小
+		this.setBackground(Color.orange);
+		this.setVisible(true);
+	}
+	
+	
+	/*
+	 * 画棋盘和棋子
+	 * @param e
+	 * 
+	 */
+	public void paint(Graphics  g) {
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());//清除画板
+		g.setColor(Color.BLACK);//绘制网格颜色
+		g.drawRect(px, py, width, height);//网格大小
+		g.drawString("单机版五子棋小游戏；右键悔棋；欢迎使用", 180, 70);
+		
+		for(int i=0 ; i<23 ; i++) {
+			g.drawLine(pxw+i*w, py, pxw+i*w, hline);//画线
+			g.drawLine(px, pyw+i*w, vline, pyw+i*w);
+		}
+		
+		for(int x=0 ; x<v.size() ; x++) {
+			String str = (String)v.get(x);//对所有走棋信息，依次调出到str
+			String tmp[] = str.split("-");//将每个str中的字符型坐标信息转化成int型
+			int a = Integer.parseInt(tmp[0]);//将X坐标值赋给a
+			int b = Integer.parseInt(tmp[1]);//将Y坐标值赋给b
+			a = a * w + px;
+			b = b * w + py;
+			if(x%2 == 0) {
+				g.setColor(Color.white);//0+双数 棋子白
+			}else {
+				g.setColor(Color.black);//单数 棋子黑
+			}
+			g.fillArc(a-w/2, b-w/2, w, w, 0, 360);//画圆棋子
+		}
+			
+	}
+	
+	/*
+	 * 鼠标点击模块
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {      //如果获取鼠标 是 鼠标左键
+			int x = e.getX();                           //记录左键位置坐标
+			int y = e.getY();
+			x = (x - x % w) + (x % w > w / 2 ? w : 0);  //将XY智能转化为行列数的整数倍
+			y = (y - y % w) + (y % w > w / 2 ? w : 0);
+			x = (x - px) / w;                           //将XY从像素数转化为棋盘行列数
+			y = (y - py) / w;
+			
+			if (x >= 0 && y >= 0 && x <= 24 && y <= 24) {
+				if (v.contains(x+"-"+y)) {              //点在已有棋子上
+					System.out.println("已经有棋了！");
+				} else {
+					v.add(x+"-"+y);                     //记录所有棋子坐标
+					this.repaint();                     //刷新界面 画出新棋子
+					if (v.size() % 2 == 0) {            //记录黑棋
+						black.add(x+"-"+y);
+						this.victory(x, y, black);      //检查是否胜利
+//						System.out.println("黑棋");
+					} else {                            //记录白棋 
+						white.add(x+"-"+y);
+						this.victory(x, y, white);      //检查是否胜利
+//						System.out.println("白棋");
+					}
+//					System.out.println(e.getX()+"-"+e.getY());
+				}
+			} else {
+//				System.out.println(e.getX()+"-"+e.getY()+"|"+x+"-"+y+"\t超出边界了");
+			}
+		}
+		
+		if(e.getButton() == MouseEvent.BUTTON3) {
+			System.out.println("鼠标右击--悔棋");
+			if (v.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "没有棋可悔");
+		}else {
+			if (v.size() % 2 == 0) {	//判断是白棋悔棋，还是黑棋悔棋
+				blackCount++;
+				if (blackCount > 3) {
+					JOptionPane.showMessageDialog(this, "黑棋已经悔了3步");
+		}else {
+			v.remove(v.lastElement());
+			this.repaint();
+		}		
+	}else {
+		whiteCount++;
+		if (whiteCount > 3) {
+			JOptionPane.showMessageDialog(this, "白棋已经悔了3步");
+	}else {
+		v.remove(v.lastElement());
+		this.repaint();
+		}
+	}
+			}
+		}	
+	}
+	
+	/*
+	 * 判断胜利的方法
+	 *   ！！！！
+	 */
+	
+	@SuppressWarnings("rawtypes")
+	public void victory(int x,int y,Vector contain) {
+		int cv = 0;	//垂直方向棋子数量
+		int ch = 0;	//水平方向棋子数量
+		int ci1 = 0; //斜面方向棋子数量1
+		int ci2 = 0; //斜面方向棋子数量2
+		
+		//计算水平方向棋子数量（每一步都过一遍）
+		for(int i=1 ; i < 5 ; i++) {
+			if(contain.contains((x+i)+"-"+y)){
+				ch++;
+			}else {
+				break;
+			}
+		}
+		for(int i=1 ; i < 5 ; i++) {
+			if(contain.contains((x-i)+"-"+y)){
+				ch++;
+			}else {
+				break;
+			}
+		}
+		
+		
+		//计算垂直方向棋子数量（每一步都过一遍）
+		for(int i=1 ; i < 5 ; i++) {
+			if(contain.contains(x+"-"+(y+i))){
+				cv++;
+			}else {
+				break;
+			}
+		}
+		for(int i=1 ; i < 5 ; i++) {
+			if(contain.contains(x+"-"+(y-i))){
+				cv++;
+			}else {
+				break;
+			}
+		}
+		
+		
+		//计算45°方向棋子数量（每一步都过一遍）
+		for (int i=1; i<5; i++) {
+			if (contain.contains((x+i)+"-"+(y+i))) {
+				ci1++;
+			} else {
+				break;
+			}
+		}
+		for (int i=1; i<5; i++) {
+			if (contain.contains((x-i)+"-"+(y-i))) {
+				ci1++;
+			} else {
+				break;
+			}
+		}
+		
+		//计算135°方向棋子数量（每一步都过一遍）
+		for (int i=1; i<5; i++) {
+			if (contain.contains((x+i)+"-"+(y-i))) {
+				ci2++;
+			} else {
+				break;
+			}
+		}
+		for (int i=1; i<5; i++) {
+			if (contain.contains((x-i)+"-"+(y+i))) {
+				ci2++;
+			} else {
+				break;
+			}
+		}
+		
+		//根据以上循环判断返回值语句
+		if(ch>=4||cv>=4||ci1>=4||ci2>=4) {
+			System.out.println("一共走了"+v.size()+"步棋");
+			if(v.size() % 2 == 0) {
+				JOptionPane.showMessageDialog(null, "黑棋以"+black.size()+"步棋，赢得了胜利","对局结果", ci2);
+			}else {
+				JOptionPane.showMessageDialog(null, "白棋以"+white.size()+"步棋，赢得了胜利","对局结果", ci2);
+			}
+			//清空记录和图形面板
+			this.v.clear();
+			this.black.clear();
+			this.white.clear();
+			this.repaint();
+		}
+		
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+}
+
