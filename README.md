@@ -59,7 +59,7 @@
  
  2.王羿（github username：zhuwohaoyunYi）
  
- 邮箱：
+ 邮箱：1770710286@qq.com
  
  3.贾乙（github username： bxkrg）
  
