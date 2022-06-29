@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CALCULATOR</title>
+    <style type="text/css">
+        #outBord {
+            border-style: solid;
+            width: 292px;
+            height: 374px;
+            color: rgb(250, 250, 250);
+            background-color: rgb(192, 192, 192);
+        }
+        
+        .input1 {
+            background-color: rgb(233, 233, 233);
+            padding: 0px;
+            width: 292px;
+            height: 50px;
+            border: none;
+            margin: 0px 0px 2px;
+        }
+        
+        .input2 {
+            text-align: right;
+            margin: 2px 0px 0px;
+        }
+        
+        .button {
+            background-color: rgb(233, 233, 233);
+            width: 70px;
+            height: 50px;
+            border: none;
+            margin: 2px 0px;
+        }
+        
+        .button1:hover {
+            background-color: rgb(192, 192, 192);
+            color: white;
+        }
+        
+        .button0 {
+            width: 144px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outBord">
+        <div>
+            <input class="input1" id="input">
+        </div>
+        <div style="height: 54px;">
+            <input class="input1 input2" type="button" id="output">
+        </div>
+        <div>
+            <div>
+                <button id="button_AC" class="button button1" onclick="once_click_AC()">AC</button>
+                <button id="button_C" class="button button1">C</button>
+                <button id="button_%" class="button button1" onclick="once_click_operater('%')">%</button>
+                <button id="button_/ " class="button button1 " onclick="once_click_operater('/')">/</button>
+            </div>
+            <div>
+                <button id="button_7 " class="button button1 " onclick="once_click_number('7')">7</button>
+                <button id="button_8 " class="button button1 " onclick="once_click_number('8')">8</button>
+                <button id="button_9 " class="button button1 " onclick="once_click_number('9')">9</button>
+                <button id="button_* " class="button button1 " onclick="once_click_operater('*')">*</button>
+            </div>
+            <div>
+                <button id="button_4 " class="button button1 " onclick="once_click_number('4')">4</button>
+                <button id="button_5 " class="button button1 " onclick="once_click_number('5')">5</button>
+                <button id="button_6 " class="button button1 " onclick="once_click_number('6')">6</button>
+                <button id="button_- " class="button button1 " onclick="once_click_operater('-')">-</button>
+            </div>
+            <div>
+                <button id="button_1 " class="button button1 " onclick="once_click_number('1')">1</button>
+                <button id="button_2 " class="button button1 " onclick="once_click_number('2')">2</button>
+                <button id="button_3 " class="button button1 " onclick="once_click_number('3')">3</button>
+                <button id="button_+ " class="button button1 " onclick="once_click_operater('+')">+</button>
+            </div>
+            <div>
+                <button id="button_0 " class="button button1 button0 " onclick="once_click_number('0')">0</button>
+                <button id="button_. " class="button button1 ">.</button>
+                <button id="button_=" class=" button button1 " onclick="once_click_operater('=')">=</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var para1 = "";
+        var para2 = "";
+        var resault = "";
+        var operator = "";
+        var flowControl = 0;
+
+        function once_click_AC() {
+            para1 = "";
+            para2 = "";
+            resault = "";
+            operator = "";
+            flowControl = 0;
+            show_expression();
+        }
+
+        function once_click_number(date) {
+            if (flowControl == 0) //
+            {
+                para1 += date;
+            } else if (flowControl == 1) {
+                para2 += date;
+            } else if (flowControl == 2) {
+                flowControl = 0;
+                para1 = "";
+                para2 = "";
+                resault = "";
+                operator = "";
+                para1 += date;
+            }
+            show_expression();
+        }
+
+        function canculate_resualt() {
+            var paraInt1 = parseInt(para1);
+            var paraInt2 = parseInt(para2);
+            var resaultInt;
+            if (!((operator == "") || (para2 == ""))) {
+                if (operator == "+") {
+                    resaultInt = paraInt1 + paraInt2;
+                } else if (operator == "-") {
+                    resaultInt = paraInt1 - paraInt2;
+                } else if (operator == "*") {
+                    resaultInt = paraInt1 * paraInt2;
+                } else if (operator == "/") {
+                    resaultInt = paraInt1 / paraInt2;
+                } else if (operator == "%") {
+                    resaultInt = paraInt1 % paraInt2;
+                }
+                resault = resaultInt.toString();
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        function show_expression() {
+            var inputBox = para1 + operator + para2;
+            document.getElementById("input").value = inputBox;
+            document.getElementById("output").value = resault;
+        }
+
+        function once_click_operater(oper) {
+            if (flowControl == 0) //
+            {
+                if (!(para1 == "")) {
+                    operator = oper;
+                    flowControl++;
+                }
+            } else if (flowControl == 1) {
+                if (oper == "=") {
+                    if (canculate_resualt() == true) {
+                        flowControl = 2;
+                    }
+                } else {
+                    if (canculate_resualt() == true) {
+                        para1 = resault;
+                        para2 = "";
+                        resault = "";
+                        operator = oper;
+                    }
+                }
+            } else if (flowControl == 2) {
+                if (!(oper == "=")) {
+                    para1 = resault;
+                    para2 = "";
+                    resault = "";
+                    operator = oper;
+                    flowControl = 1;
+                }
+            }
+            show_expression();
+        }
+    </script>
+</body>
+
+</html>
