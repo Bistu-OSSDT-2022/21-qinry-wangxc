@@ -52,7 +52,7 @@
  2.将calculator文件打开，即可使用
 ***
 # 开发团队：
-# 团队名称：三带两队
+# 团队名称：三带一队
  1.王相程（github username：yinnizhileng）
  
  邮箱：wangxiang_cheng@outlook.com
