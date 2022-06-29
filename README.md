@@ -17,6 +17,15 @@
 
 ![9ff0628373563a3447070f6a28c4c9c](https://user-images.githubusercontent.com/107829707/176191481-b2607498-03a8-4ce3-bc6b-4c0a88d7fc7d.png)
 
+——计算器——
+
+1.计算器的界面
+
+![33b3894e1a98a3affaaf6006063d57a](https://user-images.githubusercontent.com/107829831/176352246-a4573caf-25f3-4a1d-887b-a2cbb92965be.png)
+
+2.可以计算简单的加减乘除
+
+![510b7f75bd5e1f0630352faf57c3720](https://user-images.githubusercontent.com/107829831/176352419-d1416962-7ed8-4682-ba6b-11d8275ba64b.png)
 
 ***
 # 特性：
