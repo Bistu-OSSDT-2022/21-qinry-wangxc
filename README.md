@@ -21,11 +21,13 @@
 
 1.计算器的界面
 
-![33b3894e1a98a3affaaf6006063d57a](https://user-images.githubusercontent.com/107829831/176352246-a4573caf-25f3-4a1d-887b-a2cbb92965be.png)
+![21453bbf026fd5efa92cc237158422c](https://user-images.githubusercontent.com/107829831/176386662-590875a7-00f6-4db6-bda4-827a8edbede4.png)
 
-2.可以计算简单的加减乘除
 
-![510b7f75bd5e1f0630352faf57c3720](https://user-images.githubusercontent.com/107829831/176352419-d1416962-7ed8-4682-ba6b-11d8275ba64b.png)
+2.可以计算简单的加减乘除以及求余数
+
+![8d4c31daee758ea11f2b16e46295b5f](https://user-images.githubusercontent.com/107829831/176386691-f3e6c111-3024-4940-981f-f1fe981f3bf7.png)
+
 
 ***
 # 特性：
@@ -43,9 +45,9 @@
  
   --计算器用法--
  
- 1.将代码拷贝至记事本
+ 1.将该项目克隆到本地
  
- 2.打开文件的查看，将扩展名点勾，将.txt改为.html
+ 2.将calculator文件打开，即可使用
 ***
 # 开发团队：
 # 团队名称：三代一队
