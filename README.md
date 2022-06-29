@@ -55,7 +55,7 @@
 # 团队名称：三代一队
  1.王相程（github username：yinnizhileng）
  
- 邮箱：3148105964@qq.com
+ 邮箱：wangxiang_cheng@outlook.com
  
  2.王羿（github username：zhuwohaoyunYi）
  
