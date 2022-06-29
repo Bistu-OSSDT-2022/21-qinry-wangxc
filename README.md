@@ -71,7 +71,7 @@
  
  5.王旭东（github username： XvDON）
  
- 邮箱：
+ 邮箱：NPCwang@163.com
 ***
 # 特别鸣谢：
 学生导师：覃召杨
